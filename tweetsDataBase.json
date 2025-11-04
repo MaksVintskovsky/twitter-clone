@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "author": "Alice",
+    "content": "Just learned about Next.js server components! 🚀",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "likes": 5
+  },
+  {
+    "id": "2",
+    "author": "Bob",
+    "content": "Server-side rendering makes my apps so fast!",
+    "timestamp": "2024-01-15T11:45:00Z",
+    "likes": 3
+  },
+  {
+    "id": "3",
+    "author": "Charlie",
+    "content": "Learning fetch API on the server vs client. Mind blown! 🤯",
+    "timestamp": "2024-01-15T12:00:00Z",
+    "likes": 8
+  },
+  {
+    "id": "4",
+    "author": "Diana",
+    "content": "API routes in Next.js are amazing for building full-stack apps",
+    "timestamp": "2024-01-15T13:15:00Z",
+    "likes": 12
+  }
+]

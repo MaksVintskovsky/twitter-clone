@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "author": "John",
+    "content": "Hello world! This is my first tweet.",
+    "timestamp": "2025-10-29T10:00:00Z",
+    "likes": 42
+  },
+  {
+    "id": 2,
+    "author": "Alice",
+    "content": "Learning Next.js is awesome! 🚀",
+    "timestamp": "2025-10-29T11:30:00Z",
+    "likes": 23
+  },
+  {
+    "id": 3,
+    "author": "Bob",
+    "content": "Just deployed my first app to Vercel!",
+    "timestamp": "2025-10-29T12:15:00Z",
+    "likes": 15
+  }
+]
