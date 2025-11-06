@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reactions from "../../components/Reactions";
 
 async function fetchTweet(id) {
 
@@ -20,7 +21,10 @@ async function TweetPage({ params }) {
                 <div className="block w-full max-w-3xl mx-auto border-b pb-4">
                     <h2 className="text-center text-2xl mb-4 mt-4">{tweet.title}</h2>
                     <div>{tweet.body}</div>
-                    <p>👍 {tweet.reactions.likes}  |  👎 {tweet.reactions.dislikes}</p>
+                    <Reactions 
+                        likes={tweet.reactions?.likes || 0}
+                        dislikes={tweet.reactions?.dislikes || 0}
+                    />
                 </div>
                 <Link href="/" className="block m-0-auto mt-8 text-blue-500 hover:underline text-center">
                     ← Go to Feed

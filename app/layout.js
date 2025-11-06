@@ -27,9 +27,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-wrap min-h-screen">
+        <div className="flex min-h-screen">
           <SideBar />
-          {children}
+          <main className="flex-1 flex justify-items-start  items-center">
+            {children}
+          </main>
         </div>
       </body>
     </html>

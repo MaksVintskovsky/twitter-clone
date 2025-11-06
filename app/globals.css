@@ -27,16 +27,26 @@ body {
 
 .header-link {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex: 1;
   justify-content: center;
-  
-  padding: 0.35rem 0.5rem; 
-  text-decoration: none;
-  font-weight: 700;
-  line-height: 1; 
+  text-align: center;
+  color: #555;
+  padding: 25px 0;
+  height: 40px;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 .header-link:hover {
-  border-radius: 8px;
-  background-color: #DDE8F6;
+  background-color: #e4e3e3;
+}
+
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }

@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import Reactions from "./Reactions";
+import React, { useState, useEffect } from "react";
 
-export default function TweetApp() {
+export default function TweetsFromDisk() {
   const [text, setText] = useState("");
   const [tweets, setTweets] = useState([]);
   const [status, setStatus] = useState(""); 
@@ -44,34 +46,50 @@ export default function TweetApp() {
     };
 
   return (
-    <div className="flex flex-col items-center gap-3 mt-6">
-      <div className="flex items-center gap-2 mt-6">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="What's happening?"
-          className="border border-gray-300 rounded px-3 py-2 w-64"
-        />
-        <button
-          onClick={addTweet}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Send
-        </button>
+    <>
+      <div className="w-full flex px-3 gap-3  mt-6 border-b  border-b-gray-200">
+        <div>
+          <Image 
+            width={40}
+            height={40}
+            src="/pes.jpg" 
+            alt="avatar" 
+            className="w-auto h-auto rounded-full"
+          />
+        </div>
+        <div className="flex items-center gap-2 justify-between w-full">
+          <textarea
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="What's happening?"
+            className=" px-3 py-2 w-full"
+          />
+          <button
+            onClick={addTweet}
+            className="bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 hover:cursor-pointer"
+          >
+            Post
+          </button>
+        </div>
       </div>
+      <div className="w-full">
         <p style={{ color: "green", marginTop: "10px" }}>{status}</p>
-        <h2> Tweets from disk</h2>
+        <h2 className="text-center text-3xl mb-5"> Tweets from disk</h2>
         {tweets.map((tweet) => (
             <Link
               key={tweet.id}
               href={`/tweet/${tweet.id}`}
-              className="block w-full max-w-3xl mx-auto border-b pb-4 hover:bg-gray-50 p-4 rounded transition">
+              className="block w-full max-w-[600px]  border-b pb-4 hover:bg-gray-50 p-4 rounded transition">
               <h2 className="text-center text-2xl my-4">Title</h2>
-              <p className="mb-2">{tweet.body}</p>
-              <p className="text-sm text-gray-600">👍 {tweet.reactions?.likes || 0} | 👎 {tweet.reactions?.dislikes || 0}</p>
+              <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.body}</p>
+              <Reactions 
+                  likes={tweet.reactions?.likes || 0}
+                  dislikes={tweet.reactions?.dislikes || 0}
+              />
             </Link>
         ))}
-    </div>
+      </div>
+    </>
   );
 }
