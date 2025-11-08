@@ -35,7 +35,7 @@ export default function TweetsFromDisk() {
             body: JSON.stringify({ text }),
         });
         const data = await res.json();
-        console.log(data.message)
+        console.log(data)
         setText("");
         loadTweets();
         setStatus(data.message);
