@@ -80,7 +80,7 @@ export default function TweetsFromDisk() {
             <Link
               key={tweet.id}
               href={`/tweet/${tweet.id}`}
-              className="block w-full max-w-[600px]  border-b pb-4 hover:bg-gray-50 p-4 rounded transition">
+              className="block w-full   border-b border-b-gray-200 pb-4 hover:bg-gray-50 p-4  transition">
               <h2 className="text-center text-2xl my-4">Title</h2>
               <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.body}</p>
               <Reactions 

@@ -3,8 +3,8 @@ import SearchBar from './SearchBar';
 
 const RightSidebar = () => {
   return (
-    <div>
-        <div> <SearchBar placeholder="Search posts..." /></div>
+    <div className='pl-8 pt-3'>
+        <div> <SearchBar placeholder="Search" /></div>
     </div>
   )
 }

@@ -1,8 +1,9 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
 
-export default function SearchBar({ placeholder = "Search..." }) {
+export default function SearchBar({ placeholder = "Search" }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
@@ -11,21 +12,23 @@ export default function SearchBar({ placeholder = "Search..." }) {
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (query.trim() !== "") {
-        router.push(`/search?q=${query}`);
+        router.push(`/explore?q=${query}`);
       } else {
-        router.push(`/`);
+        // router.push(`/`);
       }
-    }, 400);
+    }, 600);
     return () => clearTimeout(delayDebounce);
   }, [query, router]);
 
   return (
-    <input
-      type="text"
-      placeholder={placeholder}
-      className="w-full p-2 rounded bg-gray-100 dark:bg-gray-800 focus:outline-none"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-    />
+    <div className="relative w-full ">
+      <Search className="absolute left-3 top-3.5 text-gray-400" size={18} />
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="w-full p-3 pl-8 rounded-full  border  border-gray-200 focus:outline-blue-600"
+        onChange={(e) => setQuery(e.target.value)}
+      />
+    </div>
   );
 }

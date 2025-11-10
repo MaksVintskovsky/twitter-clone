@@ -20,10 +20,10 @@ export default async function Home() {
   
   
   return (
-    <div className="font-sans max-w-[600px] min-h-screen flex flex-col items-center gap-8  border-r  border-r-gray-200">
+    <div className="font-sans  w-full min-h-screen flex flex-col items-center gap-8  ">
       <Header />
       <TweetsFromDisk />
-      <TweetsFromAPI />
+      {/* <TweetsFromAPI /> */}
     </div>
   );
 }
