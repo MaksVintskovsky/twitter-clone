@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Reactions from "./Reactions";
 import React, { useState, useEffect } from "react";
+import { Content } from "next/font/google";
 
 export default function TweetsFromDisk() {
   const [text, setText] = useState("");
@@ -20,7 +21,7 @@ export default function TweetsFromDisk() {
 
         const data = res ? await res.json() : { tweets: [] };
         console.log(data)
-        setTweets(data.tweets || []);
+        setTweets(data || []);
       } catch (error) {
         console.error("Error fetching tweets:", error);
       }
@@ -32,7 +33,10 @@ export default function TweetsFromDisk() {
         const res = await fetch("/api/tweets", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({
+              user: "Maks",
+              content: text, 
+            }),
         });
         const data = await res.json();
         console.log(data)
@@ -78,14 +82,14 @@ export default function TweetsFromDisk() {
         <h2 className="text-center text-3xl mb-5"> Tweets from disk</h2>
         {tweets.map((tweet) => (
             <Link
-              key={tweet.id}
-              href={`/tweet/${tweet.id}`}
+              key={tweet._id}
+              href={`/tweet/${tweet._id}`}
               className="block w-full   border-b border-b-gray-200 pb-4 hover:bg-gray-50 p-4  transition">
               <h2 className="text-center text-2xl my-4">Title</h2>
-              <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.body}</p>
+              <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.content}</p>
               <Reactions 
-                  likes={tweet.reactions?.likes || 0}
-                  dislikes={tweet.reactions?.dislikes || 0}
+                  likes={tweet.likes || 0}
+                  dislikes={ 0}
               />
             </Link>
         ))}
