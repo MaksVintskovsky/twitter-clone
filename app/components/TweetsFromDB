@@ -2,10 +2,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import Reactions from "./Reactions";
-import React, { useState, useEffect } from "react";
-import { Content } from "next/font/google";
+import { useState, useEffect } from "react";
 
-export default function TweetsFromDisk() {
+export default function TweetsFromDB() {
   const [text, setText] = useState("");
   const [tweets, setTweets] = useState([]);
   const [status, setStatus] = useState(""); 
@@ -16,12 +15,12 @@ export default function TweetsFromDisk() {
 
     const loadTweets = async () => {
       try {
-        const res = await fetch("/api/tweets/fromDisk");
+        const res = await fetch("/api/tweets/fromDB");
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
         const data = res ? await res.json() : { tweets: [] };
         console.log(data)
-        setTweets(data.tweets || []);
+        setTweets(data || []);
       } catch (error) {
         console.error("Error fetching tweets:", error);
       }
@@ -34,7 +33,8 @@ export default function TweetsFromDisk() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              text: text
+              user: "Maks",
+              content: text, 
             }),
         });
         const data = await res.json();
@@ -81,11 +81,11 @@ export default function TweetsFromDisk() {
         <h2 className="text-center text-3xl mb-5"> Tweets from disk</h2>
         {tweets.map((tweet) => (
             <Link
-              key={tweet.id}
-              href={`/tweet/${tweet.id}`}
+              key={tweet._id}
+              href={`/tweet/${tweet._id}`}
               className="block w-full   border-b border-b-gray-200 pb-4 hover:bg-gray-50 p-4  transition">
               <h2 className="text-center text-2xl my-4">Title</h2>
-              <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.body}</p>
+              <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.content}</p>
               <Reactions 
                   likes={tweet.likes || 0}
                   dislikes={ 0}

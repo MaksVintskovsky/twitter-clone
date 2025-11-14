@@ -33,8 +33,9 @@ export default function RootLayout({ children }) {
           <main className="flex justify-items-start min-w-[600px] border-r  border-r-gray-200">
             {children}
           </main>
-
-          <RightSidebar />
+          <div className="hidden lg:block">
+            <RightSidebar />
+          </div>
         </div>
       </body>
     </html>

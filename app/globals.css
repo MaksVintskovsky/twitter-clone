@@ -58,6 +58,5 @@ body {
 @media screen and (max-width: 1280px) {
   .sidebar-link {
     justify-content: end;
-    margin-left: auto;
   }
 }

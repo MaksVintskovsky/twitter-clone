@@ -9,7 +9,7 @@ const TweetSchema = new mongoose.Schema(
     content: {
       type: String,
       required: true,
-      maxlength: 280, // как у настоящего Твиттера
+      maxlength: 280,
     },
     likes: {
       type: Number,
