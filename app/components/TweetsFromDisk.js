@@ -50,7 +50,7 @@ export default function TweetsFromDisk() {
 
   return (
     <>
-      <div className="w-full flex px-3 gap-3  mt-6 border-b  border-b-gray-200">
+      <div className="w-full flex px-3 gap-3 border-b  border-b-gray-200">
         <div>
           <Image 
             width={40}
