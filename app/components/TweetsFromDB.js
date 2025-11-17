@@ -1,4 +1,5 @@
-"use client";
+'use client'
+import React from 'react'
 import Link from "next/link";
 import Image from "next/image";
 import Reactions from "./Reactions";
@@ -78,7 +79,7 @@ export default function TweetsFromDB() {
       </div>
       <div className="w-full">
         <p style={{ color: "green", marginTop: "10px" }}>{status}</p>
-        <h2 className="text-center text-3xl mb-5"> Tweets from disk</h2>
+        <h2 className="text-center text-3xl mb-5"> Tweets from MongoDB</h2>
         {tweets.map((tweet) => (
             <Link
               key={tweet._id}
