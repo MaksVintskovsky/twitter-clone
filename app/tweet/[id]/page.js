@@ -4,11 +4,7 @@ import Reactions from "../../components/Reactions";
 async function fetchTweet(id) {
 
     await new Promise(resolve => setTimeout(resolve, 1000))
-    if (id > 100) {
-        const res = await fetch(`/api/tweets/fromDB/${id}`);
-    } else {
-        const res = await fetch(`https://dummyjson.com/posts/${id}`);
-    }
+    const res = await fetch(`https://dummyjson.com/posts/${id}`);
     const data = await res.json();
     return data;
 }

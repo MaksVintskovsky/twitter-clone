@@ -3,15 +3,16 @@ import React from 'react'
 import Link from "next/link";
 import Image from "next/image";
 import Reactions from "./Reactions";
+import { timeAgo } from "@/lib/timeAgo";
+
+
 import { VerifiedIcon } from 'lucide-react';
 import { BiMessageRounded } from "react-icons/bi";
-
 import { BiRepost } from "react-icons/bi";
 import { CiHeart } from "react-icons/ci";
 import { VscGraph } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 import { FiShare } from "react-icons/fi";
-// import VerifiedIcon from '../../public/verified.svg';
 import { useState, useEffect } from "react";
 
 export default function TweetsFromDB() {
@@ -39,7 +40,7 @@ export default function TweetsFromDB() {
     const addTweet = async () => {
       if (!text.trim()) return setStatus("Please enter some text first!");
       try {
-        const res = await fetch("/api/tweets", {
+        const res = await fetch("/api/tweets/fromDB", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -111,23 +112,33 @@ export default function TweetsFromDB() {
                   <div className=" w-full">
                     <div id='tweetHeader' className="flex gap-2 items-center">
                       <div>
-                        name
+                        <p className='font-bold text-black'>John Snow</p>
                       </div>
                       <div>
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                       </div>
                       <div>
-                        @username
+                        @username ·
                       </div>
                       <div>
-                        post date
+                        <p className="text-gray-500 text-sm">
+                          {timeAgo(tweet.createdAt)}
+                        </p>
                       </div>
-
                     </div>
                     <div id='tweetContent'>
                       <p className="mb-2 max-w-full break-words whitespace-pre-line">{tweet.content}</p>
+                      <div className='w-full'>
+                        <Image 
+                          width={500}
+                          height={300}
+                          src={tweet.imageURL || "/tweetAlt.jpg"} 
+                          alt="tweet image" 
+                          className="w-full h-full rounded-lg"
+                        />
+                      </div>
                     </div>
-                    <div id='tweetFooter'  className="flex gap-2 w-full items-center justify-between">
+                    <div id='tweetFooter' className="flex gap-2 w-full items-center justify-between">
                       <div>
                         <button className=" tweetIcon group flex items-center gap-2 p-2 text-gray-600 hover:text-blue-500">
                           <BiMessageRounded className="w-5 h-5 stroke-current group-hover:stroke-blue-600" />
@@ -164,10 +175,6 @@ export default function TweetsFromDB() {
                       </div>
                     </div>
                   </div>
-                  {/* <Reactions 
-                      likes={tweet.likes || 0}
-                      dislikes={ 0}
-                  /> */}
                 </div>
               </Link>
           ))}

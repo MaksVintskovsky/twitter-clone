@@ -1,5 +1,5 @@
 
-import { connectDB } from "@/lib/mongoDB";
+import connectDB from "@/lib/mongoDB";
 import Tweet from "@/models/Tweet";
 
 export async function GET() {
