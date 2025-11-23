@@ -3,6 +3,7 @@ import "./globals.css";
 import "./font.css";
 import SideBar from "./components/SideBar";
 import RightSidebar from "./components/RightSidebar";
+import { AuthProvider } from "../context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,15 +30,17 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-center min-h-screen">
-          <SideBar />
-          <main className="flex justify-items-start min-w-[600px] border-r  border-r-gray-200">
-            {children}
-          </main>
-          <div className="hidden lg:block">
-            <RightSidebar />
+         <AuthProvider>
+          <div className="flex justify-center min-h-screen">
+            <SideBar />
+            <main className="flex justify-items-start min-w-[600px] border-r  border-r-gray-200">
+              {children}
+            </main>
+            <div className="hidden lg:block">
+              <RightSidebar />
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

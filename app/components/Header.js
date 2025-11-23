@@ -2,9 +2,11 @@
 import React from 'react'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAuth } from "@/context/AuthContext";
 
 export default function Header() {
   const pathname = usePathname()
+  const { user, logout } = useAuth();
 
   return (
     <div className="flex w-full border-b border-b-gray-200 items-center justify-around ">
@@ -29,7 +31,18 @@ export default function Header() {
       >
         Tweets From API
       </Link>
-      <Link
+
+       {user ? (
+        <button onClick={logout} className="text-red-600">Logout</button>
+      ) : (
+        <div className="flex gap-4">
+          <Link href="/signup">Sign Up</Link>
+          <Link href="/login">Login</Link>
+        </div>
+      )}
+
+
+      {/* <Link
         href="/signup"
         className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
       >
@@ -40,7 +53,7 @@ export default function Header() {
         className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
       >
         Login
-      </Link>
+      </Link> */}
     </div>
   )
 }
