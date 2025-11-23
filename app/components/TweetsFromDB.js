@@ -2,7 +2,8 @@
 import React from 'react'
 import Link from "next/link";
 import Image from "next/image";
-import Reactions from "./Reactions";
+import TweetLike from './TweetLikes';
+
 import { timeAgo } from "@/lib/timeAgo";
 
 
@@ -156,6 +157,7 @@ export default function TweetsFromDB() {
                           <CiHeart className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                           <span className="text-[13px] group-hover:text-pink-500">1068</span>
                         </button>
+                        <TweetLike tweetId={tweet._id} initialLikes={tweet.likes || 0} />
                       </div>
                       <div>
                         <button className="group flex items-center gap-2 p-2 text-gray-600 hover:text-blue-500">
