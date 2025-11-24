@@ -153,10 +153,10 @@ export default function TweetsFromDB() {
                         </button>
                       </div>
                       <div>
-                        <button className="group flex items-center gap-2 p-2 text-gray-600 hover:text-pink-500">
+                        {/* <button className="group flex items-center gap-2 p-2 text-gray-600 hover:text-pink-500">
                           <CiHeart className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                           <span className="text-[13px] group-hover:text-pink-500">1068</span>
-                        </button>
+                        </button> */}
                         <TweetLike tweetId={tweet._id} initialLikes={tweet.likes || 0} />
                       </div>
                       <div>

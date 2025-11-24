@@ -8,8 +8,8 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 async function getUserIdFromCookie() {
-  const cookieStore = cookies();
-  const tokenCookie = cookieStore.get("token") || cookieStore.get("authToken"); // adapt to your cookie name
+  const cookieStore = await cookies();
+  const tokenCookie = cookieStore.get("token"); 
   if (!tokenCookie) return null;
 
   try {

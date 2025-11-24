@@ -1,89 +1,157 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect} from "react"
 
-export default function TweetLike({ tweetId, initialLikes = 0, initialIsLiked = false }) {
-  const [likes, setLikes] = useState(initialLikes)
-  const [isLiked, setIsLiked] = useState(initialIsLiked)
-  const [loading, setLoading] = useState(false)
+import { CiHeart } from "react-icons/ci";
 
+export default function TweetLike({
+  tweetId,
+  initialLikes = 0,
+  initialIsLiked = false,
+}) {
+  const [likes, setLikes] = useState(initialLikes);
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   if (!tweetId) return;
+
+  //   let cancelled = false;
+
+  //   const fetchLikes = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `/api/likes?tweetId=${encodeURIComponent(tweetId)}`,
+  //         { credentials: "include" }
+  //       );
+
+  //       if (!res.ok) {
+  //         // например 401/500 — не валим UI
+  //         return;
+  //       }
+
+  //       const data = await res.json();
+  //       if (cancelled) return;
+
+  //       if (typeof data.likes === "number") {
+  //         setLikes(data.likes);
+  //       }
+  //       if (typeof data.isLiked === "boolean") {
+  //         setIsLiked(data.isLiked);
+  //       }
+  //     } catch (err) {
+  //       if (!cancelled) {
+  //         console.error("Failed to load likes", err);
+  //       }
+  //     }
+  //   };
+
+  //   fetchLikes();
+
+  //   return () => {
+  //     cancelled = true;
+  //   };
+  // }, [tweetId]);
+
+  // 2) Клик по лайку — POST / DELETE
   const handleClick = async (e) => {
-    e?.preventDefault?.()
-    e?.stopPropagation?.()
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
 
-    if (loading) return
-    setLoading(true)
+    if (loading || !tweetId) return;
 
-    // optimistic update
-    const prevLikes = likes
-    const prevIsLiked = isLiked
+    setLoading(true);
+
+    const prevLikes = likes;
+    const prevIsLiked = isLiked;
 
     if (isLiked) {
-      setLikes((l) => Math.max(0, l - 1))
-      setIsLiked(false)
+      // UNLIKE
+      setLikes((l) => Math.max(0, l - 1));
+      setIsLiked(false);
+
       try {
         const res = await fetch("/api/likes", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ tweetId }),
-          credentials: "include", // send cookies
-        })
+          credentials: "include",
+        });
+
         if (!res.ok) {
-          throw new Error("Failed to unlike")
+          throw new Error("Failed to unlike");
         }
-        const data = await res.json()
-        setLikes(data.likes ?? prevLikes - 1)
+
+        const data = await res.json();
+
+        if (typeof data.likes === "number") {
+          setLikes(data.likes);
+        } else {
+          setLikes(prevLikes - 1);
+        }
+
+        if (typeof data.isLiked === "boolean") {
+          setIsLiked(data.isLiked);
+        }
       } catch (err) {
-        // rollback
-        setLikes(prevLikes)
-        setIsLiked(prevIsLiked)
-        console.error(err)
-        // optionally show login prompt if 401
-        if (err?.message?.includes("401")) {
-          // open login modal...
-        }
+        console.error(err);
+        // откат
+        setLikes(prevLikes);
+        setIsLiked(prevIsLiked);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     } else {
-      setLikes((l) => l + 1)
-      setIsLiked(true)
+      // LIKE
+      setLikes((l) => l + 1);
+      setIsLiked(true);
+
       try {
         const res = await fetch("/api/likes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ tweetId }),
           credentials: "include",
-        })
+        });
+
         if (!res.ok) {
-          throw new Error("Failed to like")
+          throw new Error("Failed to like");
         }
-        const data = await res.json()
-        setLikes(data.likes ?? prevLikes + 1)
+
+        const data = await res.json();
+
+        if (typeof data.likes === "number") {
+          setLikes(data.likes);
+        } else {
+          setLikes(prevLikes + 1);
+        }
+
+        if (typeof data.isLiked === "boolean") {
+          setIsLiked(data.isLiked);
+        }
       } catch (err) {
-        // rollback
-        setLikes(prevLikes)
-        setIsLiked(prevIsLiked)
-        console.error(err)
-        if (err?.message?.includes("401")) {
-          // show login
-        }
+        console.error(err);
+        // откат
+        setLikes(prevLikes);
+        setIsLiked(prevIsLiked);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-  }
+  };
 
   return (
     <button
       onClick={handleClick}
       disabled={loading}
       aria-pressed={isLiked}
-      className={`px-3 py-1 rounded inline-flex items-center gap-2 text-sm transition ${
-        isLiked ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-500"
+      className={`group flex items-center gap-2 p-2 ${
+        isLiked
+          ? "text-pink-500 font-bold"
+          : "text-gray-600 hover:text-pink-500"
       }`}
     >
-      <span className="select-none">👍</span>
-      <span>{likes}</span>
+      <CiHeart className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
+      <span className="text-[13px] group-hover:text-pink-500">{likes}</span>
     </button>
-  )
+  );
 }
