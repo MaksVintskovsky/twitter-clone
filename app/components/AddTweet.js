@@ -1,63 +1,59 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from "next/image";
 
-export default function AddTweet() {
-  const [tweets, setTweets] = useState([])
-  const [newTitle, setNewTitle] = useState('')
-  const [newBody, setNewBody] = useState('')
+export default function AddTweet({ loadTweets }) {
+  const [text, setText] = useState("");
+  const [status, setStatus] = useState(""); 
 
-  function addTweet(e) {
-    e.preventDefault()
-    const title = newTitle.trim()
-    const body = newBody.trim()
-    if (!title || !body) return
-
-    const tweet = {
-      id: Date.now(),
-      title,
-      body,
-      reactions: { likes: 0, dislikes: 0 },
+  const addTweet = async () => {
+    if (!text.trim()) return setStatus("Please enter some text first!");
+    try {
+      const res = await fetch("/api/tweets/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content: text, 
+          }),
+      });
+      const data = await res.json();
+      console.log(data)
+      setText("");
+      await loadTweets();
+      setStatus(data.message);
+    } catch (error) {
+        console.error("Error saving tweet:", error);
+        setStatus("Error saving tweet. Please try again.");
     }
-
-    setTweets(prev => [tweet, ...prev])
-    setNewTitle('')
-    setNewBody('')
-  }
-
+  };
   return (
-    <div className="w-full max-w-3xl mx-auto mb-6 p-4 border rounded bg-white">
-      <form onSubmit={addTweet} className="space-y-3">
-        <input
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          placeholder="Title"
-          className="w-full p-2 border rounded"
-          maxLength={100}
-        />
-        <textarea
-          value={newBody}
-          onChange={(e) => setNewBody(e.target.value)}
-          placeholder="What's happening?"
-          className="w-full p-2 border rounded"
-          rows={3}
-          maxLength={500}
-        />
-        <div className="flex justify-end">
-          <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
-            Tweet
+          <div className="w-full flex px-3 gap-3 border-b  border-b-gray-200">
+        <div>
+          <Image 
+            width={40}
+            height={40}
+            src="/pes.jpg" 
+            alt="avatar" 
+            className="w-auto h-auto rounded-full"
+          />
+        </div>
+        <div className="flex items-center gap-2 justify-between w-full">
+          <textarea
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="What's happening?"
+            className=" px-3 py-2 w-full"
+          />
+          <button
+            onClick={addTweet}
+            className="bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 hover:cursor-pointer"
+          >
+            Post
           </button>
         </div>
-      </form>
-
-      <div className="mt-6 space-y-4">
-        {tweets.map((t) => (
-          <article key={t.id} className="p-3 border rounded">
-            <h3 className="text-lg font-semibold mb-1">{t.title}</h3>
-            <p className="text-sm">{t.body}</p>
-          </article>
-        ))}
+        <p style={{ color: "green", marginTop: "10px" }}>{status}</p>
       </div>
-    </div>
-  )
+  );
 }

@@ -15,8 +15,12 @@ const TweetSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    likedBy: {
+      type: [String],
+      default: [],
+    },
   },
-  { timestamps: true } // автоматически создаёт createdAt и updatedAt
+  { timestamps: true }
 );
 
 // Проверяем, чтобы модель не создавалась заново при каждом hot-reload
