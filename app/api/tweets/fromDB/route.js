@@ -23,7 +23,10 @@ export async function GET() {
     await connectDB();
     const userId = await getUserId();
 
-    const tweets = await Tweet.find().sort({ createdAt: -1 }).lean();
+    const tweets = await Tweet.find()
+      .populate("author", "name nickName email")
+      .sort({ createdAt: -1 })
+      .lean();
 
     const mapped = tweets.map((tweet) => ({
       ...tweet,

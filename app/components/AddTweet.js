@@ -6,8 +6,8 @@ import Image from "next/image";
 export default function AddTweet({ loadTweets }) {
   const [text, setText] = useState("");
   const [status, setStatus] = useState("");
-  const [file, setFile] = useState(null);  // ← загруженный файл
-  const [preview, setPreview] = useState(null); // ← превью
+  const [file, setFile] = useState(null); 
+  const [preview, setPreview] = useState(null);
   
   const handleFile = (e) => {
     const img = e.target.files[0];
@@ -64,9 +64,14 @@ export default function AddTweet({ loadTweets }) {
 
         <textarea
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => {
+            setText(e.target.value);
+            e.target.style.height = "auto";
+            e.target.style.height = e.target.scrollHeight + "px";
+          }}
           placeholder="What's happening?"
-          className="px-3 py-2 w-full"
+          className="px-3 py-2 w-full focus:outline-none  overflow-hidden resize-none"
+          rows={1}
         />
 
         {preview && (

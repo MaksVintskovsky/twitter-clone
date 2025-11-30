@@ -19,22 +19,22 @@ import AddTweet from './AddTweet';
 export default function TweetsFromDB() {
   const [tweets, setTweets] = useState([]);
 
-    useEffect(() => {
-        loadTweets();
-    }, []);
+  useEffect(() => {
+      loadTweets();
+  }, []);
 
-    const loadTweets = async () => {
-      try {
-        const res = await fetch("/api/tweets/fromDB");
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+  const loadTweets = async () => {
+    try {
+      const res = await fetch("/api/tweets/fromDB");
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-        const data = res ? await res.json() : { tweets: [] };
-        console.log(data)
-        setTweets(data || []);
-      } catch (error) {
-        console.error("Error fetching tweets:", error);
-      }
-    };
+      const data = res ? await res.json() : { tweets: [] };
+      console.log(data)
+      setTweets(data || []);
+    } catch (error) {
+      console.error("Error fetching tweets:", error);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -65,13 +65,13 @@ export default function TweetsFromDB() {
                   <div className=" w-full">
                     <div id='tweetHeader' className="flex gap-2 items-center">
                       <div>
-                        <p className='font-bold text-black'>{tweet.author}</p>
+                        <p className='font-bold text-black'>{tweet.author.name}</p>
                       </div>
                       <div>
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                       </div>
                       <div>
-                       <p className="text-gray-500">{tweet.user} ·</p>
+                       <p className="text-gray-500">{tweet.author.nickName} ·</p>
                       </div>
                       <div>
                         <p className="text-gray-500 text-sm">
@@ -87,7 +87,7 @@ export default function TweetsFromDB() {
                           height={300}
                           src={tweet.image || "/tweetAlt.jpg"} 
                           alt="tweet image" 
-                          className="w-full h-full rounded-lg"
+                          className=" rounded-lg max-h-[300px] w-auto h-auto object-contain"
                           priority
                         />
                       </div>
