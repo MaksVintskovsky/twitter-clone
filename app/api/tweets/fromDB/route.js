@@ -1,15 +1,4 @@
 
-// import connectDB from "@/lib/mongoDB";
-// import Tweet from "@/models/Tweet";
-
-// export async function GET() {
-//   await connectDB();
-//   const tweets = await Tweet.find().sort({ createdAt: -1 });
-//   return Response.json(tweets);
-// }
-
-
-
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongoDB";
 import Tweet from "@/models/Tweet";

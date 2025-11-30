@@ -40,32 +40,6 @@ export default function Header() {
           <Link href="/login">Login</Link>
         </div>
       )}
-
-
-      {/* <Link
-        href="/signup"
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Sign Up
-      </Link>
-      <Link 
-        href="/login"
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Login
-      </Link> */}
     </div>
   )
 }
-
-// const Header = () => {
-//   return (
-//     <div className="flex w-full  border-b  border-b-gray-200 items-center gap-4">
-//         <div className="header-link">Tweets From Disk</div>
-        
-//         <div className="header-link">Tweets from API</div>
-//     </div>
-//   )
-// }
-
-// export default Header

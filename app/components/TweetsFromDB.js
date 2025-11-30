@@ -65,13 +65,13 @@ export default function TweetsFromDB() {
                   <div className=" w-full">
                     <div id='tweetHeader' className="flex gap-2 items-center">
                       <div>
-                        <p className='font-bold text-black'>John Snow</p>
+                        <p className='font-bold text-black'>{tweet.author}</p>
                       </div>
                       <div>
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                       </div>
                       <div>
-                        @username ·
+                       <p className="text-gray-500">{tweet.user} ·</p>
                       </div>
                       <div>
                         <p className="text-gray-500 text-sm">
@@ -85,7 +85,7 @@ export default function TweetsFromDB() {
                         <Image 
                           width={500}
                           height={300}
-                          src={tweet.imageURL || "/tweetAlt.jpg"} 
+                          src={tweet.image || "/tweetAlt.jpg"} 
                           alt="tweet image" 
                           className="w-full h-full rounded-lg"
                           priority
@@ -106,11 +106,6 @@ export default function TweetsFromDB() {
                         </button>
                       </div>
                       <div>
-                        {/* <button className="group flex items-center gap-2 p-2 text-gray-600 hover:text-pink-500">
-                          <CiHeart className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
-                          <span className="text-[13px] group-hover:text-pink-500">1068</span>
-                        </button> */}
-                        {/* <TweetLike tweetId={tweet._id} initialLikes={tweet.likes || 0} /> */}
                         <TweetLike
                           tweetId={tweet._id}
                           initialLikes={tweet.likes}

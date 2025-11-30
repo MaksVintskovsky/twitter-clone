@@ -5,9 +5,9 @@ import User from "@/models/User.js";
 
 export async function POST(req) {
   try {
-    const { email, password } = await req.json();
+    const { name, nickName, email, password } = await req.json();
 
-    if (!email || !password) {
+    if (!name || !nickName || !email || !password) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
@@ -27,6 +27,8 @@ export async function POST(req) {
 
     // Создаём пользователя
     await User.create({
+      name,
+      nickName,
       email,
       password: hashedPassword,
     });

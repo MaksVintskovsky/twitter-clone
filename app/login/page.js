@@ -34,6 +34,7 @@ export default function LoginPage() {
         setMessage("Logged in successfully!");
         setTimeout(() => {
           router.push("/");
+          router.refresh();
         }, 500);
     } catch (err) {
         setMessage("Server error");

@@ -3,6 +3,7 @@ import connectDB from "@/lib/mongoDB";
 import Tweet from "@/models/Tweet";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { getUserFromToken } from "@/lib/getUserFromToken";
 
 async function getUserId() {
   const cookieStore = await cookies();
@@ -11,7 +12,7 @@ async function getUserId() {
 
   try {
     const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
-    return decoded.id || null;
+    return decoded.email || null;
   } catch {
     return null;
   }
@@ -21,9 +22,9 @@ async function getUserId() {
 export async function POST(req) {
   try {
     await connectDB();
-    const userId = await getUserId();
+    const user = await getUserFromToken();
 
-    if (!userId) {
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -32,11 +33,11 @@ export async function POST(req) {
     const tweet = await Tweet.findById(tweetId);
     if (!tweet) return NextResponse.json({ error: "Tweet not found" }, { status: 404 });
 
-    if (tweet.likedBy.includes(userId)) {
+    if (tweet.likedBy.includes(user.email)) {
       return NextResponse.json({ error: "Already liked" }, { status: 400 });
     }
 
-    tweet.likedBy.push(String(userId));
+    tweet.likedBy.push(String(user.email));
     tweet.likes = tweet.likedBy.length;
     await tweet.save();
 
@@ -57,9 +58,9 @@ export async function POST(req) {
 export async function DELETE(req) {
   try {
     await connectDB();
-    const userId = await getUserId();
+    const user = await getUserFromToken();
 
-    if (!userId) {
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -68,7 +69,7 @@ export async function DELETE(req) {
     const tweet = await Tweet.findById(tweetId);
     if (!tweet) return NextResponse.json({ error: "Tweet not found" }, { status: 404 });
 
-    tweet.likedBy = tweet.likedBy.filter((id) => id !== String(userId));
+    tweet.likedBy = tweet.likedBy.filter((id) => id !== String(user.email));
     tweet.likes = tweet.likedBy.length;
     await tweet.save();
 
