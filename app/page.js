@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export default function WelcomePage() {
   return (
@@ -5,7 +6,9 @@ export default function WelcomePage() {
 
       {/* Левая половина (можно вставить логотип X/Twitter) */}
       <div className="hidden lg:flex items-center justify-center w-1/2 bg-black">
-        <img 
+        <Image
+          width={300}
+          height={300}
           src="/twitter-x.svg" 
           alt="logo"
           className="w-1/2 invert opacity-80"

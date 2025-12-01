@@ -14,9 +14,9 @@ export default function SignupPage() {
     const nickName = e.target.nickName.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const confirmpassword = e.target.confirmpassword.value;
+    const confirmPassword = e.target.confirmPassword.value;
     
-    if(password !== confirmpassword) {
+    if(password !== confirmPassword) {
       setError("passwords do not match");
       return
     }

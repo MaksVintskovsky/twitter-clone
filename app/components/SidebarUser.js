@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 export default function SidebarUser({ user }) {
     const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -22,9 +23,8 @@ export default function SidebarUser({ user }) {
 
     const handleLogout = async () => {
         try {
-        await fetch("/api/auth/logout", { method: "GET" });
-        // после успешного логаута — редирект на нужную страницу
-        router.replace("/login"); // или "/" — как у тебя устроено
+        await fetch("/api/auth/logout", { method: "POST" });
+        router.replace("/");
         } catch (e) {
         console.error("Logout error:", e);
         }
@@ -32,7 +32,6 @@ export default function SidebarUser({ user }) {
 
   return (
     <div className="relative mt-auto">
-      {/* Основной блок юзера */}
       <div
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center justify-between p-3 hover:bg-gray-100 rounded-xl cursor-pointer transition"
@@ -43,7 +42,7 @@ export default function SidebarUser({ user }) {
             alt="avatar"
             width={40}
             height={40}
-            className="rounded-full object-cover"
+            className=" w-10 h-10 rounded-full object-cover"
           />
 
           <div className="flex flex-col">
