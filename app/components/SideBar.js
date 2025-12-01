@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { FaRegMessage } from "react-icons/fa6";
 import SidebarUser from "./SidebarUser";
 
 export default function SideBar() {
@@ -23,7 +22,7 @@ export default function SideBar() {
   
   return (
     <div className="h-screen p-4 border-r border-gray-200">
-      <div className="flex flex-col justify-end gap-x-4 gap-y-2 items-start w-full">
+      <div className="flex flex-col justify-end gap-x-4 gap-y-2 items-center xl:items-start w-full min-w-[64px]">
 
         <Link href="/" className="sidebar-link">
           <Image src="/twitter-x.svg" alt="Home" width={24} height={24} />
@@ -42,8 +41,7 @@ export default function SideBar() {
           <span className="hidden xl:block">Notifications</span>
         </Link>
         <Link href="/messages" className="sidebar-link">
-          {/* <Image src={pathname === '/messages' ? 'messages-active.svg' : 'messages.svg'} alt= "messages" width={24} height={24} /> */}
-          <FaRegMessage />
+          <Image src={pathname === '/messages' ? 'messages-active.svg' : 'messages.svg'} alt= "messages" width={24} height={24} />
           <span className="hidden xl:block">Messages</span>
         </Link>
         <Link href="/grok" className="sidebar-link">

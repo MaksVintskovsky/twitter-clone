@@ -8,17 +8,13 @@ export default function TweetLike({ tweetId, initialLikes, initialIsLiked }) {
   const [loading, setLoading] = useState(false);
 
   const toggleLike = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
     if (loading) return;
-
     setLoading(true);
-
-    const method = isLiked ? "DELETE" : "POST";
 
     try {
       const res = await fetch("/api/likes", {
-        method,
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tweetId }),
       });
@@ -26,15 +22,20 @@ export default function TweetLike({ tweetId, initialLikes, initialIsLiked }) {
       const data = await res.json();
 
       if (!res.ok) {
-        console.error(data.error);
+        console.error("Like error:", data.error);
+        setLoading(false);
         return;
       }
 
+      // обновляем локальное состояние
       setLikes(data.likes);
       setIsLiked(data.isLiked);
-    } finally {
-      setLoading(false);
+
+    } catch (error) {
+      console.error("Like request failed:", error);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -45,7 +46,7 @@ export default function TweetLike({ tweetId, initialLikes, initialIsLiked }) {
       className={`group flex items-center gap-2 p-2 ${
         isLiked
           ? "text-pink-500 font-bold"
-          : "text-gray-600  hover:text-pink-500"
+          : "text-gray-600 hover:text-pink-500"
       }`}
     >
       <CiHeart className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />

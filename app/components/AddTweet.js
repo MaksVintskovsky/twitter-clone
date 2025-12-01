@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import TwweetActions from './TweeterActionBar';
+import
 
 export default function AddTweet({ loadTweets }) {
+  const { user } = useAuth();
   const [text, setText] = useState("");
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null); 
@@ -55,8 +57,8 @@ export default function AddTweet({ loadTweets }) {
         <Image 
           width={40}
           height={40}
-          src="/pes.jpg" 
-          alt="avatar" 
+          src={user?.avatar || "/defaultAvatar.png"}
+          alt="avatar"
           className="rounded-full"
         />
       </div>
@@ -86,8 +88,6 @@ export default function AddTweet({ loadTweets }) {
         )}
 
         <div className="flex items-center justify-between">
-
-          {/* <input type="file" accept="image/*" onChange={handleFile} /> */}
           <TwweetActions  
              onImageSelect={(file) => {
               setFile(file);

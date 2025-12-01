@@ -44,14 +44,11 @@ export default function SidebarUser({ user }) {
             height={40}
             className=" w-10 h-10 rounded-full object-cover"
           />
-
-          <div className="flex flex-col">
+          <div className="flex-col hidden xl:flex">
             <span className="font-semibold leading-tight">{user.name}</span>
             <span className="text-gray-500 text-sm">@{user.nickName}</span>
           </div>
         </div>
-
-        <div className="text-gray-500 text-xl">⋯</div>
       </div>
 
       {/* Выпадающее меню */}

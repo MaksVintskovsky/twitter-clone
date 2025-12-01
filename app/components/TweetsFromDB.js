@@ -37,7 +37,7 @@ export default function TweetsFromDB() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <AddTweet loadTweets={loadTweets} />  
       <div className="w-full">
 
@@ -87,7 +87,7 @@ export default function TweetsFromDB() {
                           height={300}
                           src={tweet.image || "/tweetAlt.jpg"} 
                           alt="tweet image" 
-                          className=" rounded-lg max-h-[300px] w-auto h-auto object-contain"
+                          className="rounded-lg max-h-[300px] w-full h-auto object-cover"
                           priority
                         />
                       </div>
