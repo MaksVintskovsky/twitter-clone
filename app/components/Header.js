@@ -31,15 +31,6 @@ export default function Header() {
       >
         Tweets From API
       </Link>
-
-       {user ? (
-        <button onClick={logout} className="text-red-600">Logout</button>
-      ) : (
-        <div className="flex gap-4">
-          <Link href="/signup">Sign Up</Link>
-          <Link href="/login">Login</Link>
-        </div>
-      )}
     </div>
   )
 }

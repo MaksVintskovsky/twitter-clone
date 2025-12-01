@@ -1,14 +1,25 @@
 
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { FaRegMessage } from "react-icons/fa6";
+import SidebarUser from "./SidebarUser";
 
 export default function SideBar() {
   const pathname = usePathname()
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const res = await fetch("/api/auth/me"); // у тебя этот роут уже есть
+      const data = await res.json();
+      setUser(data.user);
+    };
+    loadUser();
+  }, []);
   
   return (
     <div className="h-screen p-4 border-r border-gray-200">
@@ -55,7 +66,9 @@ export default function SideBar() {
           <Image src={pathname === '/profile' ? 'profile-active.svg' : 'profile.svg'} alt="notifications" width={24} height={24} />
           <span className="hidden xl:block">Profile</span>
         </Link>
+        <SidebarUser user={user} />
       </div>
+
     </div>
   )
 }

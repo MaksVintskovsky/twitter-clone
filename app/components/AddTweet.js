@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from "next/image";
+import TwweetActions from './TweeterActionBar';
 
 export default function AddTweet({ loadTweets }) {
   const [text, setText] = useState("");
@@ -86,8 +87,16 @@ export default function AddTweet({ loadTweets }) {
 
         <div className="flex items-center justify-between">
 
-          <input type="file" accept="image/*" onChange={handleFile} />
-
+          {/* <input type="file" accept="image/*" onChange={handleFile} /> */}
+          <TwweetActions  
+             onImageSelect={(file) => {
+              setFile(file);
+              setPreview(URL.createObjectURL(file));
+            }}
+            onGifClick={() => console.log("GIF clicked")}
+            onEmojiClick={() => console.log("Emoji clicked")}
+            onLocationClick={() => console.log("Location clicked")}
+          />
           <button
             onClick={addTweet}
             className="bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600"

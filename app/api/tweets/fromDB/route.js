@@ -24,7 +24,7 @@ export async function GET() {
     const userId = await getUserId();
 
     const tweets = await Tweet.find()
-      .populate("author", "name nickName email")
+      .populate("author", "name nickName email avatar")
       .sort({ createdAt: -1 })
       .lean();
 

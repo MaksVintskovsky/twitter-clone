@@ -55,9 +55,9 @@ export default function TweetsFromDB() {
                       <Image 
                         width={40}
                         height={40}
-                        src="/pes.jpg" 
+                        src={tweet.author.avatar || "/defaultAvatar.png"}
                         alt="avatar" 
-                        className="w-auto h-auto rounded-full"
+                        className="w-10 h-10 rounded-full object-cover"
                         priority
                       />
                     </div>
@@ -71,7 +71,7 @@ export default function TweetsFromDB() {
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                       </div>
                       <div>
-                       <p className="text-gray-500">{tweet.author.nickName} ·</p>
+                       <p className="text-gray-500">@{tweet.author.nickName} ·</p>
                       </div>
                       <div>
                         <p className="text-gray-500 text-sm">

@@ -31,6 +31,7 @@ export async function POST(req) {
       nickName,
       email,
       password: hashedPassword,
+      avatar: "",
     });
 
     return NextResponse.json(
