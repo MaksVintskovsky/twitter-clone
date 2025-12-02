@@ -7,11 +7,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Проверяем токен в cookie при старте
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("/api/auth/me"); // API для проверки токена
+        const res = await fetch("/api/auth/me");
         if (!res.ok) throw new Error("Not authenticated");
 
         const data = await res.json();
@@ -38,5 +37,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook для использования контекста
 export const useAuth = () => useContext(AuthContext);

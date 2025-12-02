@@ -2,15 +2,13 @@
 import React from 'react'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useAuth } from "@/context/AuthContext";
 
 export default function Header() {
   const pathname = usePathname()
-  const { user, logout } = useAuth();
 
   return (
     <div className="flex w-full border-b border-b-gray-200 items-center justify-around ">
-      <Link
+      <div
         href="/tweets/disk"
         className={`header-link ${
           pathname === "/tweets/disk"
@@ -18,10 +16,10 @@ export default function Header() {
             : "text-gray-600"
         }`}
       >
-        Tweets From Disk
-      </Link>
+        For you
+      </div>
 
-      <Link
+      <div
         href="/tweets/api"
         className={`header-link ${
           pathname === "/tweets/api"
@@ -29,8 +27,8 @@ export default function Header() {
             : "text-gray-600"
         }`}
       >
-        Tweets From API
-      </Link>
+        Following
+      </div>
     </div>
   )
 }

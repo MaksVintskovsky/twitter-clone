@@ -9,7 +9,6 @@ import { timeAgo } from "@/lib/timeAgo";
 import { VerifiedIcon } from 'lucide-react';
 import { BiMessageRounded } from "react-icons/bi";
 import { BiRepost } from "react-icons/bi";
-import { CiHeart } from "react-icons/ci";
 import { VscGraph } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 import { FiShare } from "react-icons/fi";
@@ -29,7 +28,7 @@ export default function TweetsFromDB() {
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
       const data = res ? await res.json() : { tweets: [] };
-      console.log(data)
+      
       setTweets(data || []);
     } catch (error) {
       console.error("Error fetching tweets:", error);
@@ -41,8 +40,6 @@ export default function TweetsFromDB() {
       <AddTweet loadTweets={loadTweets} />  
       <div className="w-full">
 
-        <h2 className="text-center text-3xl mb-5"> Tweets from MongoDB</h2>
-
         <div className="w-full ">
           {tweets.map((tweet) => (
               <Link
@@ -51,13 +48,13 @@ export default function TweetsFromDB() {
                 className="block w-full   border-b border-b-gray-200 pb-4 hover:bg-gray-50 p-4  transition">
                 <div className="flex gap-1 w-full">
                   <div>
-                    <div>
+                    <div className='w-10 h-10'>
                       <Image 
                         width={40}
                         height={40}
                         src={tweet.author.avatar || "/defaultAvatar.png"}
                         alt="avatar" 
-                        className="w-10 h-10 rounded-full object-cover"
+                        className="w-auto h-10 rounded-full object-cover"
                         priority
                       />
                     </div>

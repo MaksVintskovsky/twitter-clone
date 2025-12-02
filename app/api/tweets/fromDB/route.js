@@ -2,26 +2,12 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongoDB";
 import Tweet from "@/models/Tweet";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
-
-async function getUserId() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token");
-  if (!token) return null;
-
-  try {
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
-    return decoded.id || null;
-  } catch {
-    return null;
-  }
-}
+import { getUserFromToken } from "@/lib/getUserFromToken";
 
 export async function GET() {
   try {
     await connectDB();
-    const userId = await getUserId();
+    const user = await getUserFromToken();
 
     const tweets = await Tweet.find()
       .populate("author", "name nickName email avatar")
@@ -30,7 +16,7 @@ export async function GET() {
 
     const mapped = tweets.map((tweet) => ({
       ...tweet,
-      isLiked: userId ? tweet.likedBy.includes(userId) : false,
+      isLiked: user.email ? tweet.likedBy.includes(String(user.email)) : false,
       likes: tweet.likedBy.length,
     }));
 

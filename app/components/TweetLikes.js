@@ -1,11 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CiHeart } from "react-icons/ci";
 
 export default function TweetLike({ tweetId, initialLikes, initialIsLiked }) {
   const [likes, setLikes] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLikes(initialLikes);
+    setIsLiked(initialIsLiked);
+  }, [initialLikes, initialIsLiked]);
 
   const toggleLike = async (e) => {
     e.preventDefault()

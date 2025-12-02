@@ -24,11 +24,11 @@ export default function SideBar() {
     <div className="h-screen p-4 border-r border-gray-200">
       <div className="flex flex-col justify-end gap-x-4 gap-y-2 items-center xl:items-start w-full min-w-[64px]">
 
-        <Link href="/" className="sidebar-link">
+        <Link href="/home" className="sidebar-link">
           <Image src="/twitter-x.svg" alt="Home" width={24} height={24} />
           <span className="hidden xl:block"></span>
         </Link>
-        <Link href="/" className="sidebar-link">
+        <Link href="/home" className="sidebar-link">
           <Image src={pathname === '/' ? '/home-active.svg' : '/home.svg'} alt="Home" width={24} height={24} />
           <span className="hidden xl:block">Home</span>
         </Link>

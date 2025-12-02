@@ -1,7 +1,7 @@
 import SideBar from "../components/SideBar";
 import RightSidebar from "../components/RightSidebar";
 
-export default function HomeLayout({ children }) {
+export default function MainLayout({ children }) {
   return (
     <div className="flex justify-center min-h-screen ">
       <SideBar />

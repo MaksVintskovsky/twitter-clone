@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import TwweetActions from './TweeterActionBar';
-import
+import { useAuth } from '@/context/AuthContext';
 
 export default function AddTweet({ loadTweets }) {
   const { user } = useAuth();
@@ -53,13 +53,13 @@ export default function AddTweet({ loadTweets }) {
 
   return (
     <div className="w-full flex px-3 gap-3 border-b border-b-gray-200 pb-3">
-      <div>
+      <div className=''>
         <Image 
           width={40}
           height={40}
           src={user?.avatar || "/defaultAvatar.png"}
           alt="avatar"
-          className="rounded-full"
+          className="rounded-full max-w-10 h-10 object-cover"
         />
       </div>
 
@@ -104,7 +104,6 @@ export default function AddTweet({ loadTweets }) {
             Post
           </button>
         </div>
-
         <p className="text-green-600">{status}</p>
       </div>
 

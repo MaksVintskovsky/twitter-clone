@@ -1,6 +1,6 @@
 
-import Header from "../components/Header";
-import TweetsFromDB from "../components/TweetsFromDB";
+import Header from "@/app/components/Header";
+import TweetsFromDB from "@/app/components/TweetsFromDB";
 
 export default function Home() {
   
