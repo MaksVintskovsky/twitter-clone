@@ -11,7 +11,7 @@ export default function MainLayout({ children }) {
       </main>
 
       <div className="hidden lg:block">
-        <RightSidebar />
+        {/* <RightSidebar /> */}
       </div>
     </div>
   );
