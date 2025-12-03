@@ -54,9 +54,9 @@ export default function TweetsFromDB() {
                       <Image 
                         width={40}
                         height={40}
-                        src={tweet.author.avatar || "/defaultAvatar.png"}
+                        src={tweet.author?.avatar || "/defaultAvatar.png"}
                         alt="avatar" 
-                        className="w-auto h-10 rounded-full object-cover"
+                        className="w-10 h-10 rounded-full object-cover"
                         priority
                       />
                     </div>
@@ -64,13 +64,13 @@ export default function TweetsFromDB() {
                   <div className=" w-full">
                     <div id='tweetHeader' className="flex gap-2 items-center">
                       <div>
-                        <p className='font-bold text-black'>{tweet.author.name}</p>
+                        <p className='font-bold text-black'>{tweet.author?.name}</p>
                       </div>
                       <div>
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                       </div>
                       <div>
-                       <p className="text-gray-500">@{tweet.author.nickName} ·</p>
+                       <p className="text-gray-500">@{tweet.author?.nickName} ·</p>
                       </div>
                       <div>
                         <p className="text-gray-500 text-sm">

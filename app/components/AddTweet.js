@@ -43,8 +43,11 @@ export default function AddTweet({ loadTweets }) {
       setFile(null);
       setPreview(null);
       await loadTweets();
-      setStatus(data.message);
 
+      setStatus(data.message);
+      setTimeout(() =>{
+        setStatus("")
+      },1500)
     } catch (error) {
       console.error("Error saving tweet:", error);
       setStatus("Error saving tweet. Please try again.");
