@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 const RightSidebar = () => {
   return (
     <div className='pl-8 pt-3'>
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <div> <SearchBar placeholder="Search" /></div>
       </Suspense>
     </div>
