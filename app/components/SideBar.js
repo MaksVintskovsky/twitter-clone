@@ -32,7 +32,7 @@ export default function SideBar() {
           <Image src={pathname === '/home' ? '/home-active.svg' : '/home.svg'} alt="Home" width={24} height={24} />
           <span className="hidden xl:block">Home</span>
         </Link>
-        <Link href="/explore" className="sidebar-link">
+        <Link href="/home" className="sidebar-link">
           <Image src={pathname === '/explore' ? '/explore-active.svg' : '/explore.svg'} alt="explore" width={24} height={24} />
           <span className="hidden xl:block">Explore</span>
         </Link>
