@@ -5,30 +5,30 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function SidebarUser({ user }) {
-    const router = useRouter();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
-    useEffect(() => {
-        function handleClickOutside(e) {
-        if (menuRef.current && !menuRef.current.contains(e.target)) {
-            setOpen(false);
-        }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+  useEffect(() => {
+    function handleClickOutside(e) {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+    }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    if (!user) return null;
+  if (!user) return null;
 
-    const handleLogout = async () => {
-        try {
-        await fetch("/api/auth/logout", { method: "POST" });
-        router.replace("/");
-        } catch (e) {
-        console.error("Logout error:", e);
-        }
-    };
+  const handleLogout = async () => {
+      try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.replace("/");
+      } catch (e) {
+      console.error("Logout error:", e);
+      }
+  };
 
   return (
     <div className="relative mt-auto">

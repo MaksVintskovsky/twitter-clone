@@ -8,7 +8,6 @@ export async function GET(req) {
   const data = await res.json();
   const posts = data.posts;
 
-
   const filtered = posts.filter(
     (t) =>
       t.body.toLowerCase().includes(q) ||
