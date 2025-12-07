@@ -6,12 +6,12 @@ export default function MainLayout({ children }) {
     <div className="flex justify-center min-h-screen ">
       <SideBar />
 
-      <main className="flex justify-items-start lg:min-w-[600px] max-w-[600px] border-r border-r-gray-200">
+      <main className="flex justify-items-start lg:min-w-[600px] max-w-[600px] w-[600px] border-r border-r-gray-200">
         {children}
       </main>
 
       <div className="hidden lg:block">
-        {/* <RightSidebar /> */}
+        <RightSidebar />
       </div>
     </div>
   );
