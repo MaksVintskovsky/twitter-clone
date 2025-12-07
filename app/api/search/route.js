@@ -1,18 +1,31 @@
-
+import connectDB from "@/lib/mongoDB";
+import Tweet from "@/models/Tweet";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
-  const q = searchParams.get("q")?.toLowerCase() || "";
+  const q = searchParams.get("q")?.trim() || "";
 
-  const res = await fetch("https://dummyjson.com/posts");
-  const data = await res.json();
-  const posts = data.posts;
+  await connectDB();
 
-  const filtered = posts.filter(
-    (t) =>
-      t.body.toLowerCase().includes(q) ||
-      t.title.toLowerCase().includes(q)
-    );
+  // если нет строки поиска — вернём просто последние твиты (по желанию)
+  const filter = q
+    ? {
+        content: { $regex: q, $options: "i" }, // ищем по content
+      }
+    : {};
 
-  return Response.json(filtered);
+  const tweets = await Tweet.find(filter)
+    .sort({ createdAt: -1 })
+    .limit(50)
+    .lean();
+
+  // Явно формируем JSON, чтобы точно были строки и нужные поля
+  const result = tweets.map((t) => ({
+    _id: t._id.toString(),
+    content: t.content,
+    image: t.image,
+    likes: t.likes,
+  }));
+
+  return Response.json(result);
 }
