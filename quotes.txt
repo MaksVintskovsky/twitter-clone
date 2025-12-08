@@ -5,23 +5,6 @@
 
 
 
-
-import { Suspense } from 'react';
-
-export default function TweetLayout({ children }) {
-  return (
-    <main className={'flex flex-col min-h-screen  p-3'}>
-      {/* every page of the web app will be wrapped in this layout */}
-      <div className="mb-6 bg-amber-100">Tweet Details Layout</div>
-      <Suspense fallback={<div>Loading tweet details...</div>}>
-        {children}
-      </Suspense>
-    </main>
-  );
-}
-
-
-554394357831788
-g3fYxiLP8y8DfGpc8mYP7dWE6rs
+MONGODB_URI=mongodb+srv://maks:Singleman88*@tweets.pllbpjj.mongodb.net/?appName=Tweets
+JWT_SECRET=your_jwt_secret_key
 CLOUDINARY_URL=cloudinary://554394357831788:g3fYxiLP8y8DfGpc8mYP7dWE6rs@dfgmrg4gt
-

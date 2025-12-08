@@ -1,5 +1,6 @@
-
-import React from 'react'
+"use client";
+import React from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import TweetLike from '@/app/components/TweetLikes';
 
@@ -11,23 +12,26 @@ import { BiRepost } from "react-icons/bi";
 import { VscGraph } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 import { FiShare } from "react-icons/fi";
-import { headers } from "next/headers";
 
-async function fetchTweet(id) {
-  const host = await headers().get("host");
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
 
-  const res = await fetch(`${protocol}://${host}/api/tweets/${id}`, {
-    cache: "no-store",
-  });
+function TweetPage({ params }) {
+    const { id } = React.use(params);
+    const [tweet, setTweet] = useState(null);
 
-  return res.json();
-}
+    useEffect(() => {
+        async function loadTweet() {
+            const res = await fetch(`/api/tweets/${id}`, {
+            credentials: "include"
+            });
+            const data = await res.json();
+            setTweet(data || []);
+        }
+        loadTweet();
+    }, [id]);
 
-async function TweetPage({ params }) {
-    const { id } = await params;
-    const tweet = await fetchTweet(id);
+
     console.log(tweet)
+    if (!tweet) return <div>Loading...</div>;
 
     return (
         <div className="flex gap-1 w-full p-3">
@@ -36,7 +40,7 @@ async function TweetPage({ params }) {
                     <Image 
                         width={40}
                         height={40}
-                        src={tweet.author.avatar || "/defaultAvatar.png"}
+                        src={tweet?.author.avatar || "/defaultAvatar.png"}
                         alt="avatar" 
                         className="w-auto h-10 rounded-full object-cover"
                         priority
@@ -46,13 +50,13 @@ async function TweetPage({ params }) {
             <div className=" w-full">
                 <div id='tweetHeader' className="flex gap-2 items-center">
                     <div>
-                        <p className='font-bold text-black'>{tweet.author.name}</p>
+                        <p className='font-bold text-black'>{tweet?.author.name}</p>
                     </div>
                     <div>
                         <VerifiedIcon className="w-5 h-5 stroke-current group-hover:stroke-pink-600" />
                     </div>
                     <div>
-                        <p className="text-gray-500">@{tweet.author.nickName} ·</p>
+                        <p className="text-gray-500">@{tweet?.author.nickName} ·</p>
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm">

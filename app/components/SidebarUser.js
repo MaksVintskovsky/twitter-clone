@@ -23,10 +23,10 @@ export default function SidebarUser({ user }) {
 
   const handleLogout = async () => {
       try {
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.replace("/");
+        await fetch("/api/auth/logout", { method: "POST" });
+        router.replace("/");
       } catch (e) {
-      console.error("Logout error:", e);
+        console.error("Logout error:", e);
       }
   };
 

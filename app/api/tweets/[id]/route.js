@@ -16,6 +16,7 @@ export async function GET(req, { params }) {
       .populate("author", "name nickName email avatar")
       .lean();
 
+
     if (!tweet) {
       return NextResponse.json(
         { error: "Tweet not found" },
