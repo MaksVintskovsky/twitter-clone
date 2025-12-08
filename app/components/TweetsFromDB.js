@@ -31,7 +31,6 @@ export default function TweetsFromDB() {
       const data = res ? await res.json() : { tweets: [] };
       
       setTweets(data || []);
-      console.log(data)
     } catch (error) {
       console.error("Error fetching tweets:", error);
     }

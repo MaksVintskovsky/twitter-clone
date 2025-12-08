@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import TweetLike from '@/app/components/TweetLikes';
 
@@ -14,8 +15,8 @@ import { CiBookmark } from "react-icons/ci";
 import { FiShare } from "react-icons/fi";
 
 
-function TweetPage({ params }) {
-    const { id } = React.use(params);
+function TweetPage() {
+    const { id } = useParams();
     const [tweet, setTweet] = useState(null);
 
     useEffect(() => {
@@ -24,13 +25,12 @@ function TweetPage({ params }) {
             credentials: "include"
             });
             const data = await res.json();
-            setTweet(data || []);
+            setTweet(data || {});
+            console.log(data)
         }
         loadTweet();
     }, [id]);
-
-
-    console.log(tweet)
+    
     if (!tweet) return <div>Loading...</div>;
 
     return (

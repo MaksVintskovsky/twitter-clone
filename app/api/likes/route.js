@@ -7,7 +7,6 @@ export async function POST(req) {
   try {
     await connectDB();
 
-    // получаем юзера из токена
     const user = await getUserFromToken();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -29,11 +28,11 @@ export async function POST(req) {
     let isLiked;
 
     if (tweet.likedBy.includes(userEmail)) {
-      // снять лайк
+
       tweet.likedBy = tweet.likedBy.filter(email => email !== userEmail);
       isLiked = false;
     } else {
-      // поставить лайк
+
       tweet.likedBy.push(userEmail);
       isLiked = true;
     }
